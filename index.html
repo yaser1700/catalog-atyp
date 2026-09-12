@@ -68,7 +68,51 @@ html, body, body *, button, input, select, textarea {
 a.action, button.action{min-height:44px;}
 .infoList .infoItem a[href^="tel:"]:hover{text-decoration:underline;}
 </style>
-<style> a[href^="tel:"]{touch-action:manipulation;-webkit-tap-highlight-color:rgba(16,42,67,.15);cursor:pointer} .pdfCard{touch-action:manipulation;-webkit-tap-highlight-color:rgba(16,42,67,.15)}</style></head>
+<style> a[href^="tel:"]{touch-action:manipulation;-webkit-tap-highlight-color:rgba(16,42,67,.15);cursor:pointer} .pdfCard{touch-action:manipulation;-webkit-tap-highlight-color:rgba(16,42,67,.15)}</style>
+<style id="font-fix-arabic">
+/* متن‌ها و اطلاعات کالا: فونت استاندارد سازگار با عربی/فارسی */
+html, body, body *, body *::before, body *::after,
+button, input, select, textarea {
+  font-family: Tahoma, Arial, "Segoe UI", sans-serif !important;
+  font-synthesis: none;
+}
+/* تیترها و برند همچنان B Titr */
+h1, h2, h3, h4, h5, h6,
+.brand h1, .brand .slogan,
+.kicker, .menuTitle, .catCard b, .pdfCard b,
+.sectionHead h2, .panel h3, .modalTop h3 {
+  font-family: 'BTitrEmbedded', 'B Titr', Tahoma, Arial, sans-serif !important;
+  font-synthesis: none;
+}
+/* نام و اطلاعات محصول عمداً با فونت استاندارد */
+.prodBody, .prodBody *, .code, .price, .meta, .mini,
+.toolbar input, .toolbar select,
+#priceSearch, #catSearch, .details, .action, .infoItem,
+.aboutGrid .panel p, .aboutGrid .infoItem,
+.coverMeta a, .coverMeta span {
+  font-family: Tahoma, Arial, "Segoe UI", sans-serif !important;
+  font-synthesis: none;
+}
+#home, #home *{font-family:'BTitrEmbedded','B Titr',Tahoma,Arial,sans-serif !important;}
+#home input,#home select,#home button,#home a{font-family:'BTitrEmbedded','B Titr',Tahoma,Arial,sans-serif !important;}
+</style>
+
+<style id="product-arabic-font-final">
+/* نام و اطلاعات کالا با فونت سازگار با فارسی/عربی */
+.products, .products *, .product-card, .product-card *, .prodBody, .prodBody *,
+.priceGrid, .priceGrid *, #priceTable, #priceTable *, .price-table, .price-table *,
+.code, .price, .meta, .mini, .productName, .product-name {
+  font-family: Tahoma, Arial, "Segoe UI", sans-serif !important;
+  font-synthesis: none !important;
+  direction: rtl;
+  unicode-bidi: plaintext;
+}
+input, select, textarea {
+  font-family: Tahoma, Arial, "Segoe UI", sans-serif !important;
+  font-synthesis: none !important;
+}
+</style>
+</head>
 <body>
 <div class="app">
 <header class="topbar">
@@ -116,15 +160,15 @@ a.action, button.action{min-height:44px;}
 <section id="pdfgroups" class="page">
  <div class="sectionHead"><div><h2>دریافت PDF محصولات</h2><p>لیست قیمت محصولات در ۹ گروه، به‌صورت جداگانه</p></div></div>
  <div class="pdfGrid">
-  <a class="pdfCard action" href="assets/01_jolobandi.pdf"><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/02_kharejat_polymeri.pdf"><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/03_socket_abbasi.pdf"><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/04_hose_benzin_booster.pdf"><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/05_electric_parts.pdf"><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/06_nut_sensor.pdf"><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/07_wire_boot.pdf"><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/08_techno_cable_sabzevar.pdf"><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/09_cable_sabzevar.pdf"><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/01_jolobandi.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/02_kharejat_polymeri.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/03_socket_abbasi.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/04_hose_benzin_booster.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/05_electric_parts.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/06_nut_sensor.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/07_wire_boot.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/08_techno_cable_sabzevar.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="assets/09_cable_sabzevar.pdf" target="_blank" rel="noopener"><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>باز کردن فایل PDF</small></div></a>
  </div>
 </section>
 
