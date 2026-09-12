@@ -38,15 +38,17 @@ button,input{font:inherit} button{cursor:pointer}
 .modal{position:fixed;inset:0;background:#001526a6;display:none;align-items:center;justify-content:center;padding:18px;z-index:30} .modal.show{display:flex} .modalCard{width:min(720px,100%);background:white;border-radius:22px;padding:22px;box-shadow:0 25px 80px #0004} .modalTop{display:flex;justify-content:space-between;align-items:center;gap:10px} .close{border:0;background:#eef3f7;width:38px;height:38px;border-radius:10px}
 @media (max-width:1000px){.cover{font-family:'BTitrEmbedded','B Titr',Tahoma,Arial,sans-serif;grid-template-columns:1fr}.products{grid-template-columns:repeat(3,1fr)}.catGrid{grid-template-columns:1fr 1fr}.aboutGrid{grid-template-columns:1fr}.brand{min-width:auto}.topnav{display:none}}
 @media (max-width:700px){.main{padding:10px}.topbar{padding:8px 10px}.brand .t1{font-size:15px}.brand img{width:45px;height:45px}.coverHero,.coverSide{padding:24px;border-radius:22px}.products{grid-template-columns:1fr 1fr}.catGrid{grid-template-columns:1fr}.menuGrid{grid-template-columns:1fr} .stats{grid-template-columns:1fr} h1{font-size:34px}}
+
+@media (max-width:700px){.pdfCard{padding:24px 20px;min-height:110px;gap:16px}.pdfIcon{width:62px;height:62px;flex-basis:62px;font-size:38px}.pdfCard b{font-size:19px}.pdfCard small{font-size:14px}}
 </style>
 
 <style>
-.pdfGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px}
-.pdfCard{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid #dce6ef;border-radius:18px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(0,32,64,.06);transition:.2s}
+.pdfGrid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;width:100%}
+.pdfCard{display:flex;align-items:center;gap:22px;padding:28px 30px;min-height:120px;width:100%;box-sizing:border-box;border:1px solid #dce6ef;border-radius:22px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 10px 30px rgba(0,32,64,.08);transition:.2s}
 .pdfCard:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,32,64,.1)}
-.pdfIcon{font-size:30px;width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:#eef6ff}
-.pdfCard b{display:block;color:var(--navy);font-size:16px}
-.pdfCard small{display:block;color:var(--muted);margin-top:5px;line-height:1.8}
+.pdfIcon{font-size:48px;width:78px;height:78px;display:grid;place-items:center;flex:0 0 78px;border-radius:18px;background:#eef6ff}
+.pdfCard b{display:block;color:var(--navy);font-size:22px;line-height:1.8}
+.pdfCard small{display:block;color:var(--muted);margin-top:6px;line-height:1.8;font-size:16px}
 </style>
 
 <style>
