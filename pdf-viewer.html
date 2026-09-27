@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b2d4d"><title>مشاهده PDF</title>
+<style>
+:root{--navy:#0b2d4d;--bg:#eef5fa;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:#17324d}
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid #d7e2eb;padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.title{font-size:18px;font-weight:700}.actions{display:flex;gap:8px;align-items:center}.btn{appearance:none;border:0;border-radius:12px;background:var(--navy);color:#fff;text-decoration:none;padding:10px 13px;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.btn.secondary{background:#fff;color:var(--navy);border:1px solid #cddae5}.wrap{max-width:980px;margin:0 auto;padding:12px}
+.page{background:var(--card);margin:0 0 12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,35,70,.08);overflow:hidden}.page img{display:block;width:100%;height:auto;background:#fff}
+.note{font-size:13px;color:#5b7186;line-height:1.8;padding:0 12px 12px;text-align:center}
+@media(max-width:600px){.title{font-size:15px}.actions{gap:6px}.btn{padding:9px 10px;font-size:12px}.wrap{padding:8px}.page{border-radius:8px}}
+</style></head><body>
+<header><div class="title" id="title">مشاهده PDF محصولات</div><div class="actions"><a class="btn secondary" href="index.html#pdfgroups">بازگشت</a><a class="btn" id="download" href="#" download>دانلود PDF اصلی</a></div></header>
+<main class="wrap" id="pages"><div class="note">در حال بارگذاری...</div></main>
+<script>
+const groups={
+'01':{name:'جلوبندی',pdf:'assets/01_jolobandi.pdf',count:2},
+'02':{name:'خارجات و پلیمریجات',pdf:'assets/02_kharejat_polymeri.pdf',count:19},
+'03':{name:'سوکت عباسی',pdf:'assets/03_socket_abbasi.pdf',count:22},
+'04':{name:'انواع شیلنگ بنزین و بوستر',pdf:'assets/04_hose_benzin_booster.pdf',count:4},
+'05':{name:'قطعات برقی',pdf:'assets/05_electric_parts.pdf',count:11},
+'06':{name:'مهره و سنسور',pdf:'assets/06_nut_sensor.pdf',count:7},
+'07':{name:'وایر و بوت',pdf:'assets/07_wire_boot.pdf',count:7},
+'08':{name:'کابل تکنو سبزوار',pdf:'assets/08_techno_cable_sabzevar.pdf',count:6},
+'09':{name:'کابل خودرو',pdf:'assets/09_cable_sabzevar.pdf',count:12}
+};
+const g=new URLSearchParams(location.search).get('g')||'01'; const cfg=groups[g]||groups['01'];
+document.title=cfg.name+' | تکنو یدک پارت عباسی'; document.getElementById('title').textContent=cfg.name; document.getElementById('download').href=cfg.pdf;
+const root=document.getElementById('pages'); root.innerHTML='';
+for(let i=1;i<=cfg.count;i++){const wrap=document.createElement('div'); wrap.className='page'; const img=document.createElement('img'); img.loading=i===1?'eager':'lazy'; img.decoding='async'; img.alt=cfg.name+' صفحه '+i; img.src=`pdf_pages/${g}/${String(i).padStart(3,'0')}.jpg`; wrap.appendChild(img); root.appendChild(wrap);}
+</script></body></html>
