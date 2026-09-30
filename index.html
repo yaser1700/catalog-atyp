@@ -120,6 +120,23 @@ input, select, textarea {
 .callLink{pointer-events:auto !important; position:relative; z-index:50; -webkit-user-select:none; user-select:none; -webkit-touch-callout:default;}
 .callLink:active{opacity:.75;}
 </style>
+
+<style>
+#pdfpreview .pdfViewerWrap{background:#fff;border:1px solid #d8e4ef;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(15,45,75,.08)}
+#pdfpreview .pdfViewerTop{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:#f6f9fc;border-bottom:1px solid #d8e4ef;flex-wrap:wrap}
+#pdfpreview .pdfViewerTitle{font-weight:900;color:var(--navy);font-size:20px}
+#pdfpreview .pdfFrame{display:block;width:100%;height:72vh;min-height:560px;border:0;background:#e9eef3}
+#pdfpreview .pdfViewerActions{display:flex;gap:10px;flex-wrap:wrap;padding:14px 16px;border-top:1px solid #d8e4ef;background:#fff}
+#pdfpreview .pdfViewerActions .action{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer}
+#pdfpreview .pdfFallback{padding:16px;color:var(--muted);line-height:2;text-align:center;background:#f8fbfe}
+@media(max-width:700px){
+  #pdfpreview .pdfFrame{height:68vh;min-height:480px}
+  #pdfpreview .pdfViewerTitle{font-size:17px}
+  #pdfpreview .pdfViewerActions{flex-direction:column}
+  #pdfpreview .pdfViewerActions .action{width:100%}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -168,15 +185,33 @@ input, select, textarea {
 <section id="pdfgroups" class="page">
  <div class="sectionHead"><div><h2>دریافت PDF محصولات</h2><p>لیست قیمت محصولات در ۹ گروه، به‌صورت جداگانه</p></div></div>
  <div class="pdfGrid">
-  <a class="pdfCard action" href="assets/01_jolobandi.pdf" download><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/02_kharejat_polymeri.pdf" download><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/03_socket_abbasi.pdf" download><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/04_hose_benzin_booster.pdf" download><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/05_electric_parts.pdf" download><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/06_nut_sensor.pdf" download><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/07_wire_boot.pdf" download><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/08_techno_cable_sabzevar.pdf" download><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/09_cable_sabzevar.pdf" download><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>باز کردن فایل PDF</small></div></a>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/01_jolobandi.pdf" data-title="جلوبندی"><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/02_kharejat_polymeri.pdf" data-title="خارجات و پلیمریجات"><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/03_socket_abbasi.pdf" data-title="سوکت عباسی"><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/04_hose_benzin_booster.pdf" data-title="انواع شیلنگ بنزین و بوستر"><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/05_electric_parts.pdf" data-title="قطعات برقی"><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/06_nut_sensor.pdf" data-title="مهره و سنسور"><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/07_wire_boot.pdf" data-title="وایر و بوت"><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/08_techno_cable_sabzevar.pdf" data-title="کابل تکنو سبزوار"><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>مشاهده PDF</small></div></button>
+  <button class="pdfCard action pdfOpen" type="button" data-pdf="assets/09_cable_sabzevar.pdf" data-title="کابل خودرو"><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>مشاهده PDF</small></div></button>
+ </div>
+</section>
+
+<section id="pdfpreview" class="page">
+ <div class="sectionHead"><div><h2>پیش‌نمایش PDF محصولات</h2><p>ابتدا فایل را مشاهده کنید، سپس در صورت نیاز همان فایل اصلی را دریافت کنید.</p></div></div>
+ <div class="pdfViewerWrap">
+   <div class="pdfViewerTop">
+     <div class="pdfViewerTitle" id="pdfPreviewTitle">پیش‌نمایش PDF</div>
+     <button class="action" type="button" data-go="pdfgroups">↩ بازگشت به گروه‌های PDF</button>
+   </div>
+   <iframe id="pdfFrame" class="pdfFrame" title="پیش‌نمایش فایل PDF"></iframe>
+   <div class="pdfFallback">
+     اگر پیش‌نمایش داخل همین صفحه توسط مرورگر گوشی نمایش داده نشد، از «مشاهده در صفحه جدید» استفاده کنید.
+   </div>
+   <div class="pdfViewerActions">
+     <a id="pdfDownloadBtn" class="action" href="#" download>⬇ دریافت فایل PDF اصلی</a>
+     <a id="pdfOpenNewBtn" class="action" href="#" target="_blank" rel="noopener">↗ مشاهده در صفحه جدید</a>
+   </div>
  </div>
 </section>
 
@@ -277,6 +312,20 @@ $('#priceSearch').addEventListener('search',e=>{state.priceQ=e.target.value;stat
 $('#backTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 function showVideoHint(){go('about');setTimeout(()=>alert('محل ویدیوی معرفی آماده است. کافی است فایل ویدیوی کوتاه شرکت را اضافه کنیم.'),250)}
 $('#videoCard').onclick=showVideoHint; $('#videoCard2').onclick=showVideoHint; $('#playPlaceholder').onclick=showVideoHint;
+
+function openPdfPreview(path,title){
+  const frame=$('#pdfFrame');
+  const dl=$('#pdfDownloadBtn');
+  const nw=$('#pdfOpenNewBtn');
+  $('#pdfPreviewTitle').textContent=title;
+  frame.src=path;
+  dl.href=path;
+  dl.setAttribute('download', path.split('/').pop());
+  nw.href=path;
+  if(location.hash !== '#pdfpreview') history.pushState(null,'','#pdfpreview');
+  go('pdfpreview');
+}
+$$('.pdfOpen').forEach(b=>b.addEventListener('click',()=>openPdfPreview(b.dataset.pdf,b.dataset.title)));
 function render(){renderPrices()}
 renderCats(); renderCatalog(); renderPrices();
 </script>
