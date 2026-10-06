@@ -116,10 +116,22 @@ input, select, textarea {
   font-synthesis: none !important;
 }
 </style>
-<style id="phone-call-fix">
-.callLink{pointer-events:auto !important; position:relative; z-index:50; -webkit-user-select:none; user-select:none; -webkit-touch-callout:default;}
-.callLink:active{opacity:.75;}
+
+<style id="user-product-photo-style">
+.prodVisual .productPhoto{
+  width:100%;
+  height:130px;
+  object-fit:contain;
+  display:block;
+  background:#fff;
+  padding:8px;
+}
+.prodVisual:has(.productPhoto){background:#fff}
+@media (max-width:700px){
+  .prodVisual .productPhoto{height:150px}
+}
 </style>
+
 </head>
 <body>
 <div class="app">
@@ -140,7 +152,7 @@ input, select, textarea {
     <div class="slogan" style="font-family:'BTitrEmbedded','B Titr',Tahoma,Arial,sans-serif">کیفیت در قطعه، اطمینان در مسیر</div>
     <p class="introText">تولید و پخش لوازم یدکی خودرو با تمرکز بر قطعات کاربردی و تنوع محصول. این نسخه، یک کاتالوگ آنلاین برای معرفی مجموعه و دسترسی سریع به محصولات و قیمت‌هاست.</p>
     <div class="pdfHeroAction"><a class="action" href="#pdfgroups" role="button">📥 دریافت فایل PDF محصولات</a></div>
-    <div class="coverMeta" style="margin-top:22px"><span class="pill">📍 تهران، خیابان شهید رجایی جنوب، سه‌راه ترانسفو</span><a class="pill callLink" href="tel:09377700031" aria-label="تماس با 09377700031">☎ 09377700031</a><a class="pill callLink" href="tel:09366611004" aria-label="تماس با 09366611004">☎ 09366611004</a></div>
+    <div class="coverMeta" style="margin-top:22px"><span class="pill">📍 تهران، خیابان شهید رجایی جنوب، سه‌راه ترانسفو</span><a class="pill" href="tel:+989377700031">☎ 09377700031</a><a class="pill" href="tel:+989366611004">☎ 09366611004</a></div>
    </div>
    <div class="coverSide">
     <div class="kicker" style="color:var(--muted)">راهنمای کاتالوگ</div><h2 style="margin:0;color:var(--navy);font-size:28px">چه چیزی می‌خواهید ببینید؟</h2>
@@ -168,15 +180,15 @@ input, select, textarea {
 <section id="pdfgroups" class="page">
  <div class="sectionHead"><div><h2>دریافت PDF محصولات</h2><p>لیست قیمت محصولات در ۹ گروه، به‌صورت جداگانه</p></div></div>
  <div class="pdfGrid">
-  <a class="pdfCard action" href="assets/01_jolobandi.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/02_kharejat_polymeri.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/03_socket_abbasi.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/04_hose_benzin_booster.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/05_electric_parts.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/06_nut_sensor.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/07_wire_boot.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/08_techno_cable_sabzevar.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>باز کردن فایل PDF</small></div></a>
-  <a class="pdfCard action" href="assets/09_cable_sabzevar.pdf" target="_self" type="application/pdf"><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/01_jolobandi.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>جلوبندی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/02_kharejat_polymeri.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>خارجات و پلیمریجات</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/03_socket_abbasi.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>سوکت عباسی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/04_hose_benzin_booster.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>انواع شیلنگ بنزین و بوستر</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/05_electric_parts.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>قطعات برقی</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/06_nut_sensor.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>مهره و سنسور</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/07_wire_boot.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>وایر و بوت</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/08_techno_cable_sabzevar.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>کابل تکنو سبزوار</b><small>باز کردن فایل PDF</small></div></a>
+  <a class="pdfCard action" href="https://yaser1700.github.io/catalog-atyp/assets/09_cable_sabzevar.pdf" target="_blank" rel="noopener noreferrer"><span class="pdfIcon">📄</span><div><b>کابل خودرو</b><small>باز کردن فایل PDF</small></div></a>
  </div>
 </section>
 
@@ -186,7 +198,7 @@ input, select, textarea {
   <div class="panel"><h3 style="margin-top:0;color:var(--navy)">معرفی</h3><p style="line-height:2.1">این مجموعه در زمینه <b>تولید و پخش لوازم یدکی خودرو</b> فعالیت داشته و تلاش می‌کند محصولات مورد نیاز بازار را با <b>تنوع مناسب و کیفیت قابل اعتماد</b> در اختیار فروشندگان و فعالان حوزه قطعات خودرو قرار دهد.</p>
    <p style="line-height:2.1">تولیدات شرکت شامل <b>بیش از ۶۰۰ قلم سوکت خودرویی، ۶۰ قلم انواع وایر و بوت و ۱۵۰ قلم انواع کابل خودرو با برند تکنو</b> است. همچنین این مجموعه در زمینه پخش انواع <b>قطعات برقی خودرو، خارجات، قطعات پلیمری، بست‌های فلزی و کمربندی، شیلنگ و قطعات پمپ بنزین</b> فعالیت می‌کند.</p>
    <p style="line-height:2.1">ما در <b>تکنو یدک پارت عباسی</b> بر این باوریم که یک قطعه باکیفیت، تنها یک محصول نیست؛ بلکه بخشی از <b>ایمنی، عملکرد و اطمینان خودرو در مسیر</b> است. به همین دلیل، کیفیت محصولات، تنوع کالا و ارائه خدمات مناسب به مشتریان را از اصول اصلی فعالیت خود می‌دانیم.</p>
-   <div class="infoList"><div class="infoItem"><b>زمینه فعالیت</b>تولید و پخش لوازم یدکی خودرو</div><div class="infoItem"><b>آدرس</b>تهران، خیابان شهید رجایی جنوب، سه‌راه ترانسفو</div><div class="infoItem"><b>تماس</b><a class="callLink" href="tel:09377700031" aria-label="تماس با 09377700031">09377700031</a><br><a class="callLink" href="tel:09366611004" aria-label="تماس با 09366611004">09366611004</a></div><div class="infoItem"><b>شعار مجموعه</b>کیفیت در قطعه، اطمینان در مسیر</div></div>
+   <div class="infoList"><div class="infoItem"><b>زمینه فعالیت</b>تولید و پخش لوازم یدکی خودرو</div><div class="infoItem"><b>آدرس</b>تهران، خیابان شهید رجایی جنوب، سه‌راه ترانسفو</div><div class="infoItem"><b>تماس</b><a href="tel:+989377700031">09377700031</a><br><a href="tel:+989366611004">09366611004</a></div><div class="infoItem"><b>شعار مجموعه</b>کیفیت در قطعه، اطمینان در مسیر</div></div>
   </div>
   <div class="panel"><div class="videoBox"><div style="text-align:center"><button class="play" id="playPlaceholder">▶</button><div style="margin-top:12px;font-weight:800">فیلم معرفی کوتاه شرکت</div><div style="font-size:12px;opacity:.8;margin-top:5px">در این نسخه محل ویدیو آماده است؛ فایل ویدیو بعداً قابل جایگزینی است.</div></div></div>
    <div class="stats"><div class="stat"><b>1,849</b><span>رکورد محصول در فایل‌های ارسالی</span></div><div class="stat"><b>9</b><span>دسته‌بندی موجود</span></div><div class="stat"><b>2</b><span>شماره تماس</span></div></div>
@@ -256,7 +268,7 @@ function matchesQuery(p,q){
 }
 function renderProductCards(){
   const q=state.catQ.trim(); const arr=PRODUCTS.filter(p=>(state.cat==='all'||p.category===state.cat)&&matchesQuery(p,q)).slice(0,48);
-  $('#products').innerHTML=arr.length ? arr.map(p=>`<article class="prod"><div class="prodVisual"><div class="partShape">${ICONS[p.category]||'📦'}</div></div><div class="prodBody"><div class="code">کد کالا: ${p.code}</div><h3>${p.name}</h3><div class="price">${money(p.price)}</div><div class="meta"><span class="mini">${p.category}</span><button class="details" data-code="${p.code}" data-source="${p.source}" data-page="${p.page}">جزئیات</button></div></div></article>`).join('') : '<div class="panel" style="grid-column:1/-1;text-align:center;padding:40px"><div style="font-size:34px">🔎</div><h3 style="color:var(--navy)">محصولی پیدا نشد</h3><p style="color:var(--muted)">نام محصول یا کد کالا را ساده‌تر جستجو کنید.</p></div>';
+  $('#products').innerHTML=arr.length ? arr.map(p=>`<article class="prod"><div class="prodVisual"><img class="productPhoto" loading="lazy" decoding="async" src="assets/product_images/${encodeURIComponent(p.code)}.jpg" alt="${p.name.replace(/"/g,'&quot;')}" onerror="this.remove();this.parentElement.innerHTML=`<div class="partShape">${ICONS[p.category]||'📦'}</div>`"></div><div class="prodBody"><div class="code">کد کالا: ${p.code}</div><h3>${p.name}</h3><div class="price">${money(p.price)}</div><div class="meta"><span class="mini">${p.category}</span><button class="details" data-code="${p.code}" data-source="${p.source}" data-page="${p.page}">جزئیات</button></div></div></article>`).join('') : '<div class="panel" style="grid-column:1/-1;text-align:center;padding:40px"><div style="font-size:34px">🔎</div><h3 style="color:var(--navy)">محصولی پیدا نشد</h3><p style="color:var(--muted)">نام محصول یا کد کالا را ساده‌تر جستجو کنید.</p></div>';
   $('#catMore').textContent=arr.length<PRODUCTS.filter(p=>(state.cat==='all'||p.category===state.cat)&&matchesQuery(p,q)).length?'نمایش ۴۸ مورد اول برای سرعت بالاتر':'همه نتایج نمایش داده شد';
   $$('#products .details').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.code,b.dataset.source,b.dataset.page)));
 }
@@ -268,7 +280,7 @@ function renderPrices(){
  $('#pageInfo').textContent=`صفحه ${state.page.toLocaleString('fa-IR')} از ${pages.toLocaleString('fa-IR')} | ${arr.length.toLocaleString('fa-IR')} نتیجه`;
  $('#prevPage').disabled=state.page<=1; $('#nextPage').disabled=state.page>=pages;
 }
-function openProduct(code,source,page){const p=PRODUCTS.find(x=>x.code===code && x.source===source && String(x.page)===String(page))||PRODUCTS.find(x=>x.code===code); if(!p)return; $('#mTitle').textContent=p.name; $('#mBody').innerHTML=`<div class="panel" style="background:#f7fafc"><b>کد کالا:</b> ${p.code}<br><b>دسته‌بندی:</b> ${p.category}<br><b>قیمت:</b> <span style="color:var(--green);font-weight:900">${money(p.price)}</span><br><b>منبع:</b> ${p.source}، صفحه ${p.page}</div><div style="margin-top:12px;color:var(--muted);font-size:13px">تصویر اختصاصی این محصول در اطلاعات ارسالی وجود نداشت؛ این کارت فعلاً با نمای گرافیکی کاتالوگ نمایش داده می‌شود و بعداً می‌توان عکس واقعی هر محصول را جایگزین کرد.</div>`; $('#modal').classList.add('show')}
+function openProduct(code,source,page){const p=PRODUCTS.find(x=>x.code===code && x.source===source && String(x.page)===String(page))||PRODUCTS.find(x=>x.code===code); if(!p)return; $('#mTitle').textContent=p.name; $('#mBody').innerHTML=`<div style="text-align:center;background:#fff;border-radius:16px;padding:10px;margin-bottom:12px"><img src="assets/product_images/${encodeURIComponent(p.code)}.jpg" alt="${p.name.replace(/"/g,'&quot;')}" style="max-width:100%;max-height:300px;object-fit:contain" onerror="this.style.display='none'"></div><div class="panel" style="background:#f7fafc"><b>کد کالا:</b> ${p.code}<br><b>دسته‌بندی:</b> ${p.category}<br><b>قیمت:</b> <span style="color:var(--green);font-weight:900">${money(p.price)}</span><br><b>منبع:</b> ${p.source}، صفحه ${p.page}</div>`; $('#modal').classList.add('show')}
 $('#closeModal').onclick=()=>$('#modal').classList.remove('show'); $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')});
 $('#catSearch').addEventListener('input',e=>{state.catQ=e.target.value;renderCatalog()});
 $('#catSearch').addEventListener('search',e=>{state.catQ=e.target.value;renderCatalog()}); $('#catSelect').addEventListener('change',e=>{state.cat=e.target.value;renderCatalog()});
