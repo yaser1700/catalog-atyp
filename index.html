@@ -246,7 +246,7 @@ input, select, textarea {
 <section id="prices" class="page">
  <div class="sectionHead"><div><h2>لیست قیمت محصولات</h2><p>قیمت‌ها مطابق فایل‌های ارسالی و بر حسب ریال هستند.</p></div><button class="action ghost" id="backTop" data-go="home" type="button">بازگشت</button></div>
  <div class="toolbar"><input id="priceSearch" class="search" placeholder="مثلاً: وایر پراید یا 701" autocomplete="off"><select id="priceSelect" class="select"><option value="all">همه دسته‌ها</option></select><select id="pageSize" class="select"><option value="25">25 ردیف</option><option value="50">50 ردیف</option><option value="100">100 ردیف</option></select></div>
- <div class="tableWrap"><table><thead><tr><th>کد</th><th>نام محصول</th><th>دسته‌بندی</th><th>قیمت (ریال)</th><th>منبع</th></tr></thead><tbody id="priceBody"></tbody></table></div>
+ <div class="tableWrap"><table><thead><tr><th>کد</th><th>نام محصول</th><th>قیمت (ریال)</th></tr></thead><tbody id="priceBody"></tbody></table></div>
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px;flex-wrap:wrap"><button class="action ghost" id="prevPage">صفحه قبل</button><div id="pageInfo" style="color:var(--muted);font-size:12px"></div><button class="action ghost" id="nextPage">صفحه بعد</button></div>
  </section>
 </main>
@@ -337,7 +337,7 @@ function renderCatalog(){renderProductCards()}
 function renderPrices(){
  const q=state.priceQ.trim(); const arr=PRODUCTS.filter(p=>(state.priceCat==='all'||p.category===state.priceCat)&&matchesQuery(p,q));
  const size=+state.pageSize; const pages=Math.max(1,Math.ceil(arr.length/size)); if(state.page>pages)state.page=pages; const slice=arr.slice((state.page-1)*size,state.page*size);
- $('#priceBody').innerHTML=slice.map(p=>`<tr><td><bdi dir="ltr">${escapeHTML(p.code)}</bdi></td><td dir="rtl">${formatProductName(p.name)}</td><td>${escapeHTML(p.category)}</td><td style="font-weight:800;color:var(--green)">${new Intl.NumberFormat('fa-IR').format(p.price)}</td><td>${escapeHTML(p.source.replace('لیست_قیمت_',''))}</td></tr>`).join('');
+ $('#priceBody').innerHTML=slice.map(p=>`<tr><td><bdi dir="ltr">${escapeHTML(p.code)}</bdi></td><td dir="rtl">${formatProductName(p.name)}</td><td style="font-weight:800;color:var(--green)">${new Intl.NumberFormat('fa-IR').format(p.price)}</td></tr>`).join('');
  $('#pageInfo').textContent=`صفحه ${state.page.toLocaleString('fa-IR')} از ${pages.toLocaleString('fa-IR')} | ${arr.length.toLocaleString('fa-IR')} نتیجه`;
  $('#prevPage').disabled=state.page<=1; $('#nextPage').disabled=state.page>=pages;
 }
