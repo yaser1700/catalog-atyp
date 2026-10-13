@@ -74,7 +74,7 @@ function money(v){return Number(v).toLocaleString('fa-IR')+' ریال';}
 function render(products){
   const q=normalize(document.getElementById('search').value);
   const filtered=products.filter(p=>
-    (!category || p.category===category) &&
+    (!category || normalize(p.category)===normalize(category)) &&
     (!q || normalize(p.name+' '+p.code+' '+p.category).includes(q))
   );
   document.getElementById('count').textContent =
@@ -86,7 +86,7 @@ function render(products){
   }
   root.innerHTML=filtered.map(p=>`<article class="prod">
     <div class="prodVisual">
-      <img loading="lazy" decoding="async" src="product_images/${encodeURIComponent(p.code)}.jpg" alt="${escapeHTML(p.name)}"
+      <img loading="lazy" decoding="async" src="./product_images/${encodeURIComponent(String(p.code).trim())}.jpg" alt="${escapeHTML(p.name)}"
       onerror="this.outerHTML='<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>'">
     </div>
     <div class="prodBody">
@@ -106,10 +106,10 @@ fetch('index.html').then(r=>{
   if(!r.ok) throw new Error('دریافت index.html ناموفق بود');
   return r.text();
 }).then(source=>{
-  const match=source.match(/const PRODUCTS=(\\[.*?\\]);/s);
+  const match=source.match(/const PRODUCTS=(\[.*?\]);/s);
   if(!match) throw new Error('فهرست محصولات در index.html پیدا نشد');
   const products=JSON.parse(match[1]);
-  if(category && !products.some(p=>p.category===category)) throw new Error('این گروه در فهرست محصولات پیدا نشد: '+category);
+  if(category && !products.some(p=>normalize(p.category)===normalize(category))) throw new Error('این گروه در فهرست محصولات پیدا نشد: '+category);
   window.catalogProducts=products;
   render(products);
 }).catch(err=>{
