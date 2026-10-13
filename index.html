@@ -235,11 +235,8 @@ input, select, textarea {
 </section>
 
 <section id="catalog" class="page">
- <div class="sectionHead"><div><h2>کاتالوگ تصویری</h2><p>محصولات را بر اساس دسته‌بندی یا عبارت جستجو کنید.</p></div><button class="action ghost" data-go="prices" type="button">مشاهده قیمت‌ها</button></div>
+ <div class="sectionHead"><div><h2>کاتالوگ تصویری</h2><p>برای مشاهده محصولات، گروه موردنظر را انتخاب کنید.</p></div><button class="action ghost" data-go="prices" type="button">مشاهده قیمت‌ها</button></div>
  <div class="catGrid" id="catButtons"></div>
- <div class="toolbar" style="margin-top:18px"><input id="catSearch" class="search" placeholder="جستجوی نام محصول یا کد..." autocomplete="off"><select id="catSelect" class="select"><option value="all">همه دسته‌ها</option></select></div>
- <div class="products" id="products"></div>
- <div id="catMore" style="text-align:center;margin:18px 0;color:var(--muted);font-size:12px"></div>
 </section>
 
 <section id="prices" class="page">
@@ -297,7 +294,6 @@ document.addEventListener('click',function(e){
 
 function renderCats(){
   $('#catButtons').innerHTML=CATS.map(c=>`<button class="catCard" data-cat="${c}"><div class="catCircle">${ICONS[c]||'📦'}</div><div><b>${CAT_LABELS[c]||c}</b><small>${PRODUCTS.filter(p=>p.category===c).length.toLocaleString('fa-IR')} محصول</small></div></button>`).join('');
-  $('#catSelect').innerHTML='<option value="all">همه دسته‌ها</option>'+CATS.map(c=>`<option value="${c}">${CAT_LABELS[c]||c}</option>`).join('');
   $$('#catButtons [data-cat]').forEach(b=>b.addEventListener('click',()=>{const params=new URLSearchParams({cat:b.dataset.cat});window.location.href='category.html?'+params.toString();}));
 }
 function normalizeText(v){
@@ -353,15 +349,13 @@ function openProduct(code,source,page){
   $('#modal').classList.add('show')
 }
 $('#closeModal').onclick=()=>$('#modal').classList.remove('show'); $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')});
-$('#catSearch').addEventListener('input',e=>{state.catQ=e.target.value;renderCatalog()});
-$('#catSearch').addEventListener('search',e=>{state.catQ=e.target.value;renderCatalog()}); $('#catSelect').addEventListener('change',e=>{state.cat=e.target.value;renderCatalog()});
 $('#priceSearch').addEventListener('input',e=>{state.priceQ=e.target.value;state.page=1;renderPrices()});
 $('#priceSearch').addEventListener('search',e=>{state.priceQ=e.target.value;state.page=1;renderPrices()}); $('#priceSelect').addEventListener('change',e=>{state.priceCat=e.target.value;state.page=1;renderPrices()}); $('#pageSize').addEventListener('change',e=>{state.pageSize=e.target.value;state.page=1;renderPrices()}); $('#prevPage').onclick=()=>{if(state.page>1){state.page--;renderPrices()}}; $('#nextPage').onclick=()=>{state.page++;renderPrices()};
 $('#backTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 function showVideoHint(){go('about');setTimeout(()=>alert('محل ویدیوی معرفی آماده است. کافی است فایل ویدیوی کوتاه شرکت را اضافه کنیم.'),250)}
 $('#videoCard').onclick=showVideoHint; $('#videoCard2').onclick=showVideoHint; $('#playPlaceholder').onclick=showVideoHint;
 function render(){renderPrices()}
-renderCats(); renderCatalog(); renderPrices();
+renderCats(); renderPrices();
 document.addEventListener('click',function(e){
   const a=e.target.closest('a[href^="tel:"]');
   if(!a) return;
