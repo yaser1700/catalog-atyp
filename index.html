@@ -33,11 +33,11 @@ button,input{font:inherit} button{cursor:pointer}
 .catGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px} .catCard{padding:18px;border-radius:18px;background:white;border:1px solid var(--line);display:flex;align-items:center;gap:13px;text-align:right} .catCard:hover{border-color:#9bc8ee;box-shadow:0 10px 24px #0b2a4a0d} .catCircle{width:54px;height:54px;border-radius:15px;background:var(--sky);display:grid;place-items:center;font-size:25px;flex:none} .catCard b{display:block;color:var(--navy)} .catCard small{color:var(--muted)}
 .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:15px} .search{flex:1;min-width:230px;background:white;border:1px solid var(--line);border-radius:13px;padding:13px 15px;outline:none} .search:focus{border-color:#83bbe8;box-shadow:0 0 0 3px #83bbe822} .select{background:white;border:1px solid var(--line);border-radius:13px;padding:12px 14px;color:var(--navy)}
 .products{display:grid;grid-template-columns:repeat(4,1fr);gap:14px} .prod{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px #0b2a4a0a;display:flex;flex-direction:column} .prodVisual{height:135px;background:linear-gradient(135deg,#eef6fc,#f8fbfe);display:grid;place-items:center;position:relative} .partShape{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,#0d6eb8,#49a1e6);box-shadow:inset 0 0 0 8px #ffffff55,0 12px 22px #0b2a4a22;display:grid;place-items:center;color:white;font-size:34px} .prodBody{padding:14px} .code{font-size:11px;color:var(--muted)} .prod h3{margin:6px 0;font-size:15px;line-height:1.7;color:var(--navy)} .price{font-weight:900;color:var(--green);font-size:16px;margin-top:10px} .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px} .mini{font-size:11px;color:var(--muted);background:#f3f6f8;padding:5px 8px;border-radius:999px} .details{border:0;background:#edf5fb;color:var(--navy);padding:8px 10px;border-radius:9px;font-size:12px}
-.tableWrap{background:white;border:1px solid var(--line);border-radius:18px;overflow:auto;box-shadow:0 8px 24px #0b2a4a0a} table{width:100%;border-collapse:collapse;min-width:760px} th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:13px} th{position:sticky;top:0;background:#f2f7fb;color:var(--navy);z-index:1} tr:hover td{background:#fbfdff}
+.tableWrap{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px #0b2a4a0a} table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:0} th,td{padding:12px 10px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px;overflow-wrap:anywhere;word-break:normal} th{position:sticky;top:0;background:#f2f7fb;color:var(--navy);z-index:1;font-size:15px;font-weight:800} .priceTable td:nth-child(2){font-size:16px;line-height:1.9;font-weight:600}.priceTable td:nth-child(3){font-size:17px;font-weight:900;color:var(--green);white-space:nowrap}.priceTable td:first-child{font-size:14px;white-space:nowrap} tr:hover td{background:#fbfdff}
 .footer{margin-top:26px;background:var(--navy);color:white;padding:18px 24px;text-align:center;font-size:12px} .footer span{opacity:.8}
 .modal{position:fixed;inset:0;background:#001526a6;display:none;align-items:center;justify-content:center;padding:18px;z-index:30} .modal.show{display:flex} .modalCard{width:min(720px,100%);background:white;border-radius:22px;padding:22px;box-shadow:0 25px 80px #0004} .modalTop{display:flex;justify-content:space-between;align-items:center;gap:10px} .close{border:0;background:#eef3f7;width:38px;height:38px;border-radius:10px}
 @media (max-width:1000px){.cover{font-family:'BTitrEmbedded','B Titr',Tahoma,Arial,sans-serif;grid-template-columns:1fr}.products{grid-template-columns:repeat(3,1fr)}.catGrid{grid-template-columns:1fr 1fr}.aboutGrid{grid-template-columns:1fr}.brand{min-width:auto}.topnav{display:none}}
-@media (max-width:700px){.main{padding:10px}.topbar{padding:8px 10px}.brand .t1{font-size:15px}.brand img{width:45px;height:45px}.coverHero,.coverSide{padding:24px;border-radius:22px}.products{grid-template-columns:1fr 1fr}.catGrid{grid-template-columns:1fr}.menuGrid{grid-template-columns:1fr} .stats{grid-template-columns:1fr} h1{font-size:34px}}
+@media (max-width:700px){.priceTable th,.priceTable td{padding:10px 5px;font-size:13px}.priceTable th{font-size:13px}.priceTable td:nth-child(2){font-size:15px;line-height:1.8}.priceTable td:nth-child(3){font-size:15px;white-space:normal}.main{padding:10px}.topbar{padding:8px 10px}.brand .t1{font-size:15px}.brand img{width:45px;height:45px}.coverHero,.coverSide{padding:24px;border-radius:22px}.products{grid-template-columns:1fr 1fr}.catGrid{grid-template-columns:1fr}.menuGrid{grid-template-columns:1fr} .stats{grid-template-columns:1fr} h1{font-size:34px}}
 
 /* Direct PDF links: no JavaScript interception; optimized for mobile taps */
 .pdfCard.action{cursor:pointer; -webkit-tap-highlight-color:rgba(0,0,0,.08); touch-action:manipulation;}
@@ -160,27 +160,6 @@ input, select, textarea {
   cursor:pointer;
 }
 </style>
-
-<style id="responsive-price-list-fix">
-/* لیست قیمت: فقط کد، نام کالا و قیمت؛ بدون اسکرول افقی در موبایل */
-.priceTableWrap{overflow-x:hidden;width:100%;max-width:100%;}
-.priceTable{width:100%;min-width:0;table-layout:fixed;}
-.priceTable .priceCodeCol{width:19%;}
-.priceTable .priceNameCol{width:51%;}
-.priceTable .priceValueCol{width:30%;}
-.priceTable th,.priceTable td{overflow-wrap:anywhere;word-break:normal;}
-.priceTable .priceValueCell{color:var(--green);font-weight:800;white-space:normal;font-variant-numeric:tabular-nums;}
-@media(max-width:600px){
- .priceTable th,.priceTable td{padding:9px 5px;font-size:11px;line-height:1.8;}
- .priceTable .priceCodeCol{width:18%;}
- .priceTable .priceNameCol{width:47%;}
- .priceTable .priceValueCol{width:35%;}
- .priceTable .priceCodeCell{white-space:nowrap;font-size:10px;}
- .priceTable .priceNameCell{overflow-wrap:anywhere;}
- .priceTable .priceValueCell{font-size:11px;letter-spacing:-.2px;}
-}
-</style>
-
 </head>
 <body>
 <div class="app">
@@ -256,17 +235,14 @@ input, select, textarea {
 </section>
 
 <section id="catalog" class="page">
- <div class="sectionHead"><div><h2>کاتالوگ تصویری</h2><p>محصولات را بر اساس دسته‌بندی یا عبارت جستجو کنید.</p></div><button class="action ghost" data-go="prices" type="button">مشاهده قیمت‌ها</button></div>
+ <div class="sectionHead"><div><h2>کاتالوگ تصویری</h2><p>برای مشاهده محصولات، گروه کالایی موردنظر را انتخاب کنید.</p></div><button class="action ghost" data-go="prices" type="button">مشاهده قیمت‌ها</button></div>
  <div class="catGrid" id="catButtons"></div>
- <div class="toolbar" style="margin-top:18px"><input id="catSearch" class="search" placeholder="جستجوی نام محصول یا کد..." autocomplete="off"><select id="catSelect" class="select"><option value="all">همه دسته‌ها</option></select></div>
- <div class="products" id="products"></div>
- <div id="catMore" style="text-align:center;margin:18px 0;color:var(--muted);font-size:12px"></div>
 </section>
 
 <section id="prices" class="page">
  <div class="sectionHead"><div><h2>لیست قیمت محصولات</h2><p>قیمت‌ها مطابق فایل‌های ارسالی و بر حسب ریال هستند.</p></div><button class="action ghost" id="backTop" data-go="home" type="button">بازگشت</button></div>
  <div class="toolbar"><input id="priceSearch" class="search" placeholder="مثلاً: وایر پراید یا 701" autocomplete="off"><select id="priceSelect" class="select"><option value="all">همه دسته‌ها</option></select><select id="pageSize" class="select"><option value="25">25 ردیف</option><option value="50">50 ردیف</option><option value="100">100 ردیف</option></select></div>
- <div class="tableWrap priceTableWrap"><table class="priceTable"><colgroup><col class="priceCodeCol"><col class="priceNameCol"><col class="priceValueCol"></colgroup><thead><tr><th>کد</th><th>نام محصول</th><th>قیمت (ریال)</th></tr></thead><tbody id="priceBody"></tbody></table></div>
+ <div class="tableWrap priceTable"><table><colgroup><col style="width:16%"><col style="width:56%"><col style="width:28%"></colgroup><thead><tr><th>کد</th><th>نام محصول</th><th>قیمت (ریال)</th></tr></thead><tbody id="priceBody"></tbody></table></div>
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px;flex-wrap:wrap"><button class="action ghost" id="prevPage">صفحه قبل</button><div id="pageInfo" style="color:var(--muted);font-size:12px"></div><button class="action ghost" id="nextPage">صفحه بعد</button></div>
  </section>
 </main>
@@ -318,7 +294,6 @@ document.addEventListener('click',function(e){
 
 function renderCats(){
   $('#catButtons').innerHTML=CATS.map(c=>`<button class="catCard" data-cat="${c}"><div class="catCircle">${ICONS[c]||'📦'}</div><div><b>${CAT_LABELS[c]||c}</b><small>${PRODUCTS.filter(p=>p.category===c).length.toLocaleString('fa-IR')} محصول</small></div></button>`).join('');
-  $('#catSelect').innerHTML='<option value="all">همه دسته‌ها</option>'+CATS.map(c=>`<option value="${c}">${CAT_LABELS[c]||c}</option>`).join('');
   $$('#catButtons [data-cat]').forEach(b=>b.addEventListener('click',()=>{const params=new URLSearchParams({cat:b.dataset.cat});window.location.href='category.html?'+params.toString();}));
 }
 function normalizeText(v){
@@ -361,7 +336,7 @@ function renderCatalog(){renderProductCards()}
 function renderPrices(){
  const q=state.priceQ.trim(); const arr=PRODUCTS.filter(p=>(state.priceCat==='all'||p.category===state.priceCat)&&matchesQuery(p,q));
  const size=+state.pageSize; const pages=Math.max(1,Math.ceil(arr.length/size)); if(state.page>pages)state.page=pages; const slice=arr.slice((state.page-1)*size,state.page*size);
- $('#priceBody').innerHTML=slice.map(p=>`<tr><td class="priceCodeCell"><bdi dir="ltr">${escapeHTML(p.code)}</bdi></td><td class="priceNameCell" dir="rtl">${formatProductName(p.name)}</td><td class="priceValueCell">${new Intl.NumberFormat('fa-IR').format(p.price)}</td></tr>`).join('');
+ $('#priceBody').innerHTML=slice.map(p=>`<tr><td><bdi dir="ltr">${escapeHTML(p.code)}</bdi></td><td dir="rtl">${formatProductName(p.name)}</td><td>${new Intl.NumberFormat('fa-IR').format(p.price)}</td></tr>`).join('');
  $('#pageInfo').textContent=`صفحه ${state.page.toLocaleString('fa-IR')} از ${pages.toLocaleString('fa-IR')} | ${arr.length.toLocaleString('fa-IR')} نتیجه`;
  $('#prevPage').disabled=state.page<=1; $('#nextPage').disabled=state.page>=pages;
 }
@@ -374,15 +349,13 @@ function openProduct(code,source,page){
   $('#modal').classList.add('show')
 }
 $('#closeModal').onclick=()=>$('#modal').classList.remove('show'); $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('show')});
-$('#catSearch').addEventListener('input',e=>{state.catQ=e.target.value;renderCatalog()});
-$('#catSearch').addEventListener('search',e=>{state.catQ=e.target.value;renderCatalog()}); $('#catSelect').addEventListener('change',e=>{state.cat=e.target.value;renderCatalog()});
 $('#priceSearch').addEventListener('input',e=>{state.priceQ=e.target.value;state.page=1;renderPrices()});
 $('#priceSearch').addEventListener('search',e=>{state.priceQ=e.target.value;state.page=1;renderPrices()}); $('#priceSelect').addEventListener('change',e=>{state.priceCat=e.target.value;state.page=1;renderPrices()}); $('#pageSize').addEventListener('change',e=>{state.pageSize=e.target.value;state.page=1;renderPrices()}); $('#prevPage').onclick=()=>{if(state.page>1){state.page--;renderPrices()}}; $('#nextPage').onclick=()=>{state.page++;renderPrices()};
 $('#backTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 function showVideoHint(){go('about');setTimeout(()=>alert('محل ویدیوی معرفی آماده است. کافی است فایل ویدیوی کوتاه شرکت را اضافه کنیم.'),250)}
 $('#videoCard').onclick=showVideoHint; $('#videoCard2').onclick=showVideoHint; $('#playPlaceholder').onclick=showVideoHint;
 function render(){renderPrices()}
-renderCats(); renderCatalog(); renderPrices();
+renderCats(); renderPrices();
 document.addEventListener('click',function(e){
   const a=e.target.closest('a[href^="tel:"]');
   if(!a) return;
