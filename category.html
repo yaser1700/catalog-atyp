@@ -30,6 +30,7 @@ h1{font-size:23px;margin:0;color:var(--navy)}.sub{color:var(--muted);font-size:1
 .mini{font-size:11px;background:#eef3f7;color:#486173;border-radius:6px;padding:3px 7px}
 .details{background:var(--navy);color:white;font-size:12px;padding:7px 10px}
 .empty{background:#fff;padding:35px;text-align:center;border:1px solid var(--line);border-radius:14px;color:var(--muted);grid-column:1/-1}
+.modal{position:fixed;inset:0;background:#001526a6;display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}.modal.show{display:flex}.modalCard{width:min(720px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:18px;box-shadow:0 25px 80px #0004}.modalTop{display:flex;justify-content:space-between;align-items:center;gap:10px}.close{border:0;background:#eef3f7;color:#153a56;width:40px;height:40px;border-radius:10px;font-size:20px}.detailPhoto{max-width:100%;max-height:300px;object-fit:contain}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 @media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){main{padding:0 10px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.prodVisual{height:135px}.prodBody{padding:9px}.prod h3{font-size:12px}.price{font-size:14px}.head{align-items:flex-start;flex-direction:column}h1{font-size:20px}}
@@ -51,15 +52,13 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
   <div class="count" id="count">در حال خواندن فهرست محصولات...</div>
   <section class="products" id="products"></section>
 </main>
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="modalCard"><div class="modalTop"><h2 id="mTitle" style="margin:0;color:var(--navy);font-size:19px">جزئیات محصول</h2><button class="close" id="closeModal" type="button" aria-label="بستن">✕</button></div><div id="mBody" style="margin-top:14px;line-height:2"></div></div></div>
 <footer>تکنو یدک پارت عباسی · ATYP</footer>
 <script>
 const params = new URLSearchParams(location.search);
-const requestedCategory = params.get('cat') || '';
-const CATEGORY_ALIASES = {'کابل تکنو سبزوار':'کابل تکنو','وایر و بوت وایر':'وایر','انواع شیلنگ بنزین و بوستر':'شیلنگ خودرو','قطعات برقی':'قطعات برقی خودرو'};
-const category = CATEGORY_ALIASES[requestedCategory] || requestedCategory;
+const category = params.get('cat') || '';
 const title = document.getElementById('title');
-const CATEGORY_TITLES = {'کابل تکنو':'کابل تکنو سبزوار','وایر':'وایر و بوت وایر','شیلنگ خودرو':'انواع شیلنگ بنزین و بوستر','قطعات برقی خودرو':'قطعات برقی'};
-title.textContent = category ? 'محصولات گروه ' + (CATEGORY_TITLES[category] || category) : 'همه محصولات';
+title.textContent = category ? 'محصولات گروه ' + category : 'همه محصولات';
 document.title = title.textContent + ' | تکنو یدک پارت عباسی';
 
 function normalize(v){
@@ -74,14 +73,35 @@ function escapeHTML(v){
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 function money(v){return Number(v).toLocaleString('fa-IR')+' ریال';}
+
+function openProductDetails(p){
+  document.getElementById('mTitle').textContent=p.name || 'جزئیات محصول';
+  const imageUrl='./product_images/'+encodeURIComponent(String(p.code).trim())+'.jpg';
+  document.getElementById('mBody').innerHTML=`
+    <div style="text-align:center;background:#f8fafc;border-radius:14px;padding:12px;margin-bottom:14px;min-height:100px">
+      <img class="detailPhoto" src="${imageUrl}" alt="${escapeHTML(p.name)}" onerror="this.style.display='none'">
+    </div>
+    <div style="background:#f7fafc;border-radius:12px;padding:14px">
+      <div><b>کد کالا:</b> <bdi dir="ltr">${escapeHTML(p.code)}</bdi></div>
+      <div><b>گروه:</b> ${escapeHTML(p.category)}</div>
+      <div><b>قیمت:</b> <span style="color:var(--green);font-weight:900">${money(p.price)}</span></div>
+      <div><b>منبع:</b> ${escapeHTML(p.source || '—')}</div>
+      <div><b>صفحه:</b> <bdi dir="ltr">${escapeHTML(p.page ?? '—')}</bdi></div>
+    </div>`;
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('closeModal').focus();
+}
+const detailModal=document.getElementById('modal');
+document.getElementById('closeModal').addEventListener('click',()=>detailModal.classList.remove('show'));
+detailModal.addEventListener('click',e=>{if(e.target===detailModal)detailModal.classList.remove('show')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')detailModal.classList.remove('show')});
+
 function render(products){
   const q=normalize(document.getElementById('search').value);
-  const tokens=q.split(' ').filter(Boolean);
-  const filtered=products.filter(p=>{
-    if(category && normalize(p.category)!==normalize(category)) return false;
-    const hay=normalize([p.name,p.code,p.category,p.source].join(' '));
-    return tokens.every(token=>hay.includes(token));
-  });
+  const filtered=products.filter(p=>
+    (!category || normalize(p.category)===normalize(category)) &&
+    (!q || normalize(p.name+' '+p.code+' '+p.category).includes(q))
+  );
   document.getElementById('count').textContent =
     'تعداد محصولات: '+filtered.length.toLocaleString('fa-IR');
   const root=document.getElementById('products');
@@ -91,7 +111,7 @@ function render(products){
   }
   root.innerHTML=filtered.map(p=>`<article class="prod">
     <div class="prodVisual">
-      <img loading="lazy" decoding="async" src="product_images/${encodeURIComponent(String(p.code ?? '').trim())}.jpg" alt="${escapeHTML(p.name)}"
+      <img loading="lazy" decoding="async" src="./product_images/${encodeURIComponent(String(p.code).trim())}.jpg" alt="${escapeHTML(p.name)}"
       onerror="this.outerHTML='<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>'">
     </div>
     <div class="prodBody">
@@ -102,9 +122,9 @@ function render(products){
       <button class="details" type="button" data-code="${escapeHTML(p.code)}" data-source="${escapeHTML(p.source)}" data-page="${escapeHTML(p.page)}">جزئیات</button></div>
     </div></article>`).join('');
   root.querySelectorAll('.details').forEach(btn=>btn.addEventListener('click',()=>{
-    const p=filtered.find(x=>x.code===btn.dataset.code && x.source===btn.dataset.source && String(x.page)===btn.dataset.page);
+    const p=filtered.find(x=>String(x.code)===btn.dataset.code && String(x.source)===btn.dataset.source && String(x.page)===btn.dataset.page);
     if(!p)return;
-    alert('نام: '+p.name+'\\nکد کالا: '+p.code+'\\nگروه: '+p.category+'\\nقیمت: '+Number(p.price).toLocaleString('fa-IR')+' ریال');
+    openProductDetails(p);
   }));
 }
 fetch('index.html').then(r=>{
