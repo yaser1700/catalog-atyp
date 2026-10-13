@@ -63,10 +63,21 @@ document.title = title.textContent + ' | تکنو یدک پارت عباسی';
 
 function normalize(v){
   return String(v ?? '').toLowerCase()
-    .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/ة/g,'ه')
+    .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[ۀة]/g,'ه')
+    .replace(/[ؤ]/g,'و').replace(/[أإٱ]/g,'ا')
     .replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
     .replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)))
-    .replace(/‌/g,' ').replace(/\s+/g,' ').trim();
+    .replace(/[\u064B-\u065F\u0670]/g,'')
+    .replace(/[\u200c\u200d]/g,' ')
+    .replace(/[ـ\-_/،,؛;:.()\[\]{}]+/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function matchesSearch(product, query){
+  if(!query) return true;
+  const haystack=normalize([product.name,product.code,product.category,product.source].join(' '));
+  // هر واژه مستقل بررسی می‌شود؛ ترتیب کلمات در جستجو مهم نیست.
+  const words=normalize(query).split(' ').filter(Boolean);
+  return words.every(word=>haystack.includes(word));
 }
 function escapeHTML(v){
   return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -97,10 +108,10 @@ detailModal.addEventListener('click',e=>{if(e.target===detailModal)detailModal.c
 document.addEventListener('keydown',e=>{if(e.key==='Escape')detailModal.classList.remove('show')});
 
 function render(products){
-  const q=normalize(document.getElementById('search').value);
+  const q=document.getElementById('search').value;
   const filtered=products.filter(p=>
     (!category || normalize(p.category)===normalize(category)) &&
-    (!q || normalize(p.name+' '+p.code+' '+p.category).includes(q))
+    matchesSearch(p,q)
   );
   document.getElementById('count').textContent =
     'تعداد محصولات: '+filtered.length.toLocaleString('fa-IR');
