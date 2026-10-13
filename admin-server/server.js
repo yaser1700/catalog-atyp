@@ -38,6 +38,7 @@ db.exec(`
     changed_at TEXT NOT NULL
   );
 `);
+app.set('trust proxy', 1); // Render terminates HTTPS at its proxy; required for secure session cookies
 app.disable('x-powered-by');
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
