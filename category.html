@@ -54,9 +54,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 <footer>تکنو یدک پارت عباسی · ATYP</footer>
 <script>
 const params = new URLSearchParams(location.search);
-const category = params.get('cat') || '';
+const requestedCategory = params.get('cat') || '';
+const CATEGORY_ALIASES = {'کابل تکنو سبزوار':'کابل تکنو','وایر و بوت وایر':'وایر','انواع شیلنگ بنزین و بوستر':'شیلنگ خودرو','قطعات برقی':'قطعات برقی خودرو'};
+const category = CATEGORY_ALIASES[requestedCategory] || requestedCategory;
 const title = document.getElementById('title');
-title.textContent = category ? 'محصولات گروه ' + category : 'همه محصولات';
+const CATEGORY_TITLES = {'کابل تکنو':'کابل تکنو سبزوار','وایر':'وایر و بوت وایر','شیلنگ خودرو':'انواع شیلنگ بنزین و بوستر','قطعات برقی خودرو':'قطعات برقی'};
+title.textContent = category ? 'محصولات گروه ' + (CATEGORY_TITLES[category] || category) : 'همه محصولات';
 document.title = title.textContent + ' | تکنو یدک پارت عباسی';
 
 function normalize(v){
@@ -73,10 +76,12 @@ function escapeHTML(v){
 function money(v){return Number(v).toLocaleString('fa-IR')+' ریال';}
 function render(products){
   const q=normalize(document.getElementById('search').value);
-  const filtered=products.filter(p=>
-    (!category || normalize(p.category)===normalize(category)) &&
-    (!q || normalize(p.name+' '+p.code+' '+p.category).includes(q))
-  );
+  const tokens=q.split(' ').filter(Boolean);
+  const filtered=products.filter(p=>{
+    if(category && normalize(p.category)!==normalize(category)) return false;
+    const hay=normalize([p.name,p.code,p.category,p.source].join(' '));
+    return tokens.every(token=>hay.includes(token));
+  });
   document.getElementById('count').textContent =
     'تعداد محصولات: '+filtered.length.toLocaleString('fa-IR');
   const root=document.getElementById('products');
@@ -86,7 +91,7 @@ function render(products){
   }
   root.innerHTML=filtered.map(p=>`<article class="prod">
     <div class="prodVisual">
-      <img loading="lazy" decoding="async" src="./product_images/${encodeURIComponent(String(p.code).trim())}.jpg" alt="${escapeHTML(p.name)}"
+      <img loading="lazy" decoding="async" src="product_images/${encodeURIComponent(String(p.code ?? '').trim())}.jpg" alt="${escapeHTML(p.name)}"
       onerror="this.outerHTML='<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>'">
     </div>
     <div class="prodBody">
