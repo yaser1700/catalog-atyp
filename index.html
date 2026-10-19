@@ -42,6 +42,28 @@ button,input{font:inherit} button{cursor:pointer}
 /* Direct PDF links: no JavaScript interception; optimized for mobile taps */
 .pdfCard.action{cursor:pointer; -webkit-tap-highlight-color:rgba(0,0,0,.08); touch-action:manipulation;}
 .pdfCard.action:active{transform:scale(.99);}
+
+/* اصلاحات محدود طبق درخواست: فقط نمایش گروه‌های کالا در بخش کاتالوگ و خوانایی لیست قیمت */
+#catalog .toolbar,
+#catalog .search,
+#catalog .select,
+#catalog #products,
+#catalog #catMore,
+#catalog .catalog-search,
+#catalog .catalog-filters { display:none !important; }
+
+@media (max-width:700px) {
+  .priceTable th { font-size:16px !important; }
+  .priceTable td:nth-child(2) { font-size:18px !important; line-height:2 !important; }
+  .priceTable td:nth-child(3) { font-size:18px !important; line-height:1.8 !important; font-weight:900 !important; }
+  .priceTable td:first-child { font-size:16px !important; }
+}
+@media (min-width:701px) {
+  .priceTable th { font-size:17px; }
+  .priceTable td:nth-child(2) { font-size:18px; }
+  .priceTable td:nth-child(3) { font-size:19px; }
+}
+
 </style>
 
 <style>
