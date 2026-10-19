@@ -34,6 +34,18 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 @media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){main{padding:0 10px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.prodVisual{height:135px}.prodBody{padding:9px}.prod h3{font-size:12px}.price{font-size:14px}.head{align-items:flex-start;flex-direction:column}h1{font-size:20px}}
 @media(max-width:360px){.products{grid-template-columns:1fr}.prodVisual{height:180px}}
+ 
+/* Product details dialog */
+.productDialogBackdrop{position:fixed;inset:0;background:rgba(8,25,39,.68);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+.productDialogBackdrop.open{display:flex}
+.productDialog{background:#fff;width:min(100%,520px);max-height:90vh;overflow:auto;border-radius:18px;padding:18px;box-shadow:0 18px 60px #0003}
+.productDialogHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.productDialogClose{background:#eaf0f5;color:#153a56;font-size:20px;min-width:42px}
+.productDialogImage{height:220px;display:flex;align-items:center;justify-content:center;background:#f8fafc;border-radius:12px;margin:12px 0}
+.productDialogImage img{max-width:100%;max-height:100%;object-fit:contain}
+.productDialogInfo{line-height:2}
+.productBuyLink{display:flex;background:#16804a;color:#fff;text-decoration:none;font-weight:bold;justify-content:center;padding:12px 16px;border-radius:10px;margin-top:14px}
+
 </style>
 </head>
 <body>
@@ -62,6 +74,28 @@ const CATEGORY_TITLES = {'کابل تکنو':'کابل تکنو سبزوار','�
 title.textContent = category ? 'محصولات گروه ' + (CATEGORY_TITLES[category] || category) : 'همه محصولات';
 document.title = title.textContent + ' | تکنو یدک پارت عباسی';
 
+function openProductDetails(p){
+  let backdrop=document.getElementById('productDialogBackdrop');
+  if(!backdrop){
+    backdrop=document.createElement('div');
+    backdrop.id='productDialogBackdrop';
+    backdrop.className='productDialogBackdrop';
+    backdrop.innerHTML='<section class="productDialog" role="dialog" aria-modal="true" aria-labelledby="productDialogTitle"><div class="productDialogHead"><h2 id="productDialogTitle" style="font-size:19px;margin:0;color:#153a56">جزئیات محصول</h2><button class="productDialogClose" type="button" aria-label="بستن">×</button></div><div id="productDialogContent"></div></section>';
+    document.body.appendChild(backdrop);
+    backdrop.querySelector('.productDialogClose').addEventListener('click',()=>backdrop.classList.remove('open'));
+    backdrop.addEventListener('click',e=>{if(e.target===backdrop)backdrop.classList.remove('open')});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')backdrop.classList.remove('open')});
+  }
+  const title=document.getElementById('productDialogTitle');
+  title.textContent=String(p.name||'جزئیات محصول');
+  const imageUrl='product_images/'+encodeURIComponent(String(p.code??'').trim())+'.jpg';
+  document.getElementById('productDialogContent').innerHTML=
+    '<div class="productDialogImage"><img src="'+imageUrl+'" alt="'+escapeHTML(p.name)+'" onerror="this.parentElement.innerHTML=\'<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>\'"></div>'+
+    '<div class="productDialogInfo"><b>کد کالا:</b> <bdi dir="ltr">'+escapeHTML(p.code)+'</bdi><br>'+
+    '<b>گروه کالا:</b> '+escapeHTML(p.category)+'<br><b>قیمت:</b> <span style="color:#16804a;font-weight:900">'+money(p.price)+'</span></div>'+
+    '<a class="productBuyLink" href="https://tecnoyadakabbasi.ir" target="_blank" rel="noopener noreferrer">ورود به سایت خرید</a>';
+  backdrop.classList.add('open');
+}
 function normalize(v){
   return String(v ?? '').toLowerCase()
     .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/ة/g,'ه')
@@ -102,9 +136,10 @@ function render(products){
       <button class="details" type="button" data-code="${escapeHTML(p.code)}" data-source="${escapeHTML(p.source)}" data-page="${escapeHTML(p.page)}">جزئیات</button></div>
     </div></article>`).join('');
   root.querySelectorAll('.details').forEach(btn=>btn.addEventListener('click',()=>{
-    const p=filtered.find(x=>x.code===btn.dataset.code && x.source===btn.dataset.source && String(x.page)===btn.dataset.page);
+    const p=filtered.find(x=>String(x.code).trim()===btn.dataset.code && x.source===btn.dataset.source && String(x.page)===btn.dataset.page)
+      || filtered.find(x=>String(x.code).trim()===btn.dataset.code);
     if(!p)return;
-    alert('نام: '+p.name+'\\nکد کالا: '+p.code+'\\nگروه: '+p.category+'\\nقیمت: '+Number(p.price).toLocaleString('fa-IR')+' ریال');
+    openProductDetails(p);
   }));
 }
 fetch('index.html').then(r=>{
