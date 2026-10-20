@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Isolated staging admin service for Techno Yadak catalog",
-  "engines": { "node": "22.x" },
+  "engines": { "node": "18.x" },
   "scripts": {
     "start": "node server.js",
     "check": "node --check server.js"
