@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محصولات گروه | تکنو یدک پارت عباسی</title>
+<style>
+:root{--navy:#153a56;--green:#16804a;--muted:#6c7e8c;--line:#e4ebf0;--bg:#f3f6f9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#193449;font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{background:linear-gradient(125deg,#102f48,#1d5275);color:#fff;padding:18px 16px}
+.head{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-size:18px;font-weight:800}.brand small{display:block;font-size:12px;font-weight:normal;opacity:.8}
+main{max-width:1200px;margin:22px auto;padding:0 16px}
+.toolbar{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+input{flex:1;min-width:180px;padding:12px;border:1px solid #d5e0e8;border-radius:9px;font:inherit}
+button,.back{font:inherit;border:0;border-radius:9px;padding:10px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.back{background:#eaf0f5;color:var(--navy);font-weight:bold}
+h1{font-size:23px;margin:0;color:var(--navy)}.sub{color:var(--muted);font-size:13px;margin:4px 0 16px}
+.count{color:var(--muted);font-size:13px;margin:10px 2px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.prod{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:0 5px 18px #102f4608}
+.prodVisual{height:175px;background:#f8fafc;display:flex;align-items:center;justify-content:center;padding:10px;border-bottom:1px solid var(--line)}
+.prodVisual img{max-width:100%;max-height:100%;object-fit:contain}
+.noimg{color:#96a5b0;font-size:12px;text-align:center}
+.prodBody{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.code{font-size:12px;color:var(--muted)}.prod h3{font-size:14px;line-height:1.9;margin:0;color:var(--navy);font-weight:700}
+.price{font-size:16px;color:var(--green);font-weight:900}
+.meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.mini{font-size:11px;background:#eef3f7;color:#486173;border-radius:6px;padding:3px 7px}
+.details{background:var(--navy);color:white;font-size:12px;padding:7px 10px}
+.empty{background:#fff;padding:35px;text-align:center;border:1px solid var(--line);border-radius:14px;color:var(--muted);grid-column:1/-1}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+@media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){main{padding:0 10px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.prodVisual{height:135px}.prodBody{padding:9px}.prod h3{font-size:12px}.price{font-size:14px}.head{align-items:flex-start;flex-direction:column}h1{font-size:20px}}
+@media(max-width:360px){.products{grid-template-columns:1fr}.prodVisual{height:180px}}
+ 
+/* Product details dialog */
+.productDialogBackdrop{position:fixed;inset:0;background:rgba(8,25,39,.68);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+.productDialogBackdrop.open{display:flex}
+.productDialog{background:#fff;width:min(100%,520px);max-height:90vh;overflow:auto;border-radius:18px;padding:18px;box-shadow:0 18px 60px #0003}
+.productDialogHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.productDialogClose{background:#eaf0f5;color:#153a56;font-size:20px;min-width:42px}
+.productDialogImage{height:220px;display:flex;align-items:center;justify-content:center;background:#f8fafc;border-radius:12px;margin:12px 0}
+.productDialogImage img{max-width:100%;max-height:100%;object-fit:contain}
+.productDialogInfo{line-height:2}
+.productBuyLink{display:flex;background:#16804a;color:#fff;text-decoration:none;font-weight:bold;justify-content:center;padding:12px 16px;border-radius:10px;margin-top:14px}
+
+</style>
+</head>
+<body>
+<header><div class="head">
+  <div class="brand">تکنو یدک پارت عباسی<small>کاتالوگ تصویری محصولات</small></div>
+  <a class="back" href="index.html">← بازگشت به کاتالوگ</a>
+</div></header>
+<main>
+  <h1 id="title">محصولات گروه</h1>
+  <p class="sub">ترتیب محصولات مطابق ترتیب ثبت‌شده در کاتالوگ اصلی است.</p>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="جستجو در نام یا کد کالا..." aria-label="جستجو در محصولات">
+    <button class="back" id="clear" type="button">پاک کردن جستجو</button>
+  </div>
+  <div class="count" id="count">در حال خواندن فهرست محصولات...</div>
+  <section class="products" id="products"></section>
+</main>
+<footer>تکنو یدک پارت عباسی · ATYP</footer>
+<script>
+const params = new URLSearchParams(location.search);
+const requestedCategory = params.get('cat') || '';
+const CATEGORY_ALIASES = {'کابل تکنو سبزوار':'کابل تکنو','وایر و بوت وایر':'وایر','انواع شیلنگ بنزین و بوستر':'شیلنگ خودرو','قطعات برقی':'قطعات برقی خودرو'};
+const category = CATEGORY_ALIASES[requestedCategory] || requestedCategory;
+const title = document.getElementById('title');
+const CATEGORY_TITLES = {'کابل تکنو':'کابل تکنو سبزوار','وایر':'وایر و بوت وایر','شیلنگ خودرو':'انواع شیلنگ بنزین و بوستر','قطعات برقی خودرو':'قطعات برقی'};
+title.textContent = category ? 'محصولات گروه ' + (CATEGORY_TITLES[category] || category) : 'همه محصولات';
+document.title = title.textContent + ' | تکنو یدک پارت عباسی';
+
+function openProductDetails(p){
+  let backdrop=document.getElementById('productDialogBackdrop');
+  if(!backdrop){
+    backdrop=document.createElement('div');
+    backdrop.id='productDialogBackdrop';
+    backdrop.className='productDialogBackdrop';
+    backdrop.innerHTML='<section class="productDialog" role="dialog" aria-modal="true" aria-labelledby="productDialogTitle"><div class="productDialogHead"><h2 id="productDialogTitle" style="font-size:19px;margin:0;color:#153a56">جزئیات محصول</h2><button class="productDialogClose" type="button" aria-label="بستن">×</button></div><div id="productDialogContent"></div></section>';
+    document.body.appendChild(backdrop);
+    backdrop.querySelector('.productDialogClose').addEventListener('click',()=>backdrop.classList.remove('open'));
+    backdrop.addEventListener('click',e=>{if(e.target===backdrop)backdrop.classList.remove('open')});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')backdrop.classList.remove('open')});
+  }
+  const title=document.getElementById('productDialogTitle');
+  title.textContent=String(p.name||'جزئیات محصول');
+  const imageUrl='product_images/'+encodeURIComponent(String(p.code??'').trim())+'.jpg';
+  document.getElementById('productDialogContent').innerHTML=
+    '<div class="productDialogImage"><img src="'+imageUrl+'" alt="'+escapeHTML(p.name)+'" onerror="this.parentElement.innerHTML=\'<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>\'"></div>'+
+    '<div class="productDialogInfo"><b>کد کالا:</b> <bdi dir="ltr">'+escapeHTML(p.code)+'</bdi><br>'+
+    '<b>گروه کالا:</b> '+escapeHTML(p.category)+'<br><b>قیمت:</b> <span style="color:#16804a;font-weight:900">'+money(p.price)+'</span></div>'+
+    '<a class="productBuyLink" href="https://tecnoyadakabbasi.ir" target="_blank" rel="noopener noreferrer">ورود به سایت خرید</a>';
+  backdrop.classList.add('open');
+}
+function normalize(v){
+  return String(v ?? '').toLowerCase()
+    .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/ة/g,'ه')
+    .replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
+    .replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)))
+    .replace(/‌/g,' ').replace(/\s+/g,' ').trim();
+}
+function escapeHTML(v){
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function money(v){return Number(v).toLocaleString('fa-IR')+' ریال';}
+function render(products){
+  const q=normalize(document.getElementById('search').value);
+  const tokens=q.split(' ').filter(Boolean);
+  const filtered=products.filter(p=>{
+    if(category && normalize(p.category)!==normalize(category)) return false;
+    const hay=normalize([p.name,p.code,p.category,p.source].join(' '));
+    return tokens.every(token=>hay.includes(token));
+  });
+  document.getElementById('count').textContent =
+    'تعداد محصولات: '+filtered.length.toLocaleString('fa-IR');
+  const root=document.getElementById('products');
+  if(!filtered.length){
+    root.innerHTML='<div class="empty">محصولی پیدا نشد. عبارت جستجو را تغییر دهید.</div>';
+    return;
+  }
+  root.innerHTML=filtered.map(p=>`<article class="prod">
+    <div class="prodVisual">
+      <img loading="lazy" decoding="async" src="product_images/${encodeURIComponent(String(p.code ?? '').trim())}.jpg" alt="${escapeHTML(p.name)}"
+      onerror="this.outerHTML='<div class=&quot;noimg&quot;>تصویر این کالا موجود نیست</div>'">
+    </div>
+    <div class="prodBody">
+      <div class="code">کد کالا: <bdi dir="ltr">${escapeHTML(p.code)}</bdi></div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <div class="price">${money(p.price)}</div>
+      <div class="meta"><span class="mini">${escapeHTML(p.category)}</span>
+      <button class="details" type="button" data-code="${escapeHTML(p.code)}" data-source="${escapeHTML(p.source)}" data-page="${escapeHTML(p.page)}">جزئیات</button></div>
+    </div></article>`).join('');
+  root.querySelectorAll('.details').forEach(btn=>btn.addEventListener('click',()=>{
+    const p=filtered.find(x=>String(x.code).trim()===btn.dataset.code && x.source===btn.dataset.source && String(x.page)===btn.dataset.page)
+      || filtered.find(x=>String(x.code).trim()===btn.dataset.code);
+    if(!p)return;
+    openProductDetails(p);
+  }));
+}
+fetch('index.html').then(r=>{
+  if(!r.ok) throw new Error('دریافت index.html ناموفق بود');
+  return r.text();
+}).then(source=>{
+  const match=source.match(/const PRODUCTS=(\[.*?\]);/s);
+  if(!match) throw new Error('فهرست محصولات در index.html پیدا نشد');
+  const products=JSON.parse(match[1]);
+  if(category && !products.some(p=>normalize(p.category)===normalize(category))) throw new Error('این گروه در فهرست محصولات پیدا نشد: '+category);
+  window.catalogProducts=products;
+  render(products);
+}).catch(err=>{
+  document.getElementById('count').textContent='خطا در خواندن محصولات';
+  document.getElementById('products').innerHTML='<div class="empty">'+escapeHTML(err.message)+'<br>این صفحه باید کنار index.html و روی همان سایت قرار بگیرد.</div>';
+});
+document.getElementById('search').addEventListener('input',()=>{if(window.catalogProducts)render(window.catalogProducts);});
+document.getElementById('clear').addEventListener('click',()=>{document.getElementById('search').value='';if(window.catalogProducts)render(window.catalogProducts);});
+</script>
+</body>
+</html>
